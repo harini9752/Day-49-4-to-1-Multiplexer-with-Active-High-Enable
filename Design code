@@ -1,0 +1,22 @@
+module four_to_one_mux_with_enable (
+  input wire [3:0] data_in [0:3],
+  input wire [1:0] select,
+  input wire enable,
+  output reg mux_output
+);
+
+  always @* begin
+    if (enable) begin
+      mux_output = 1'b1; // Output high when enable is high
+    end else begin
+      case (select)
+        2'b00: mux_output = data_in[0];
+        2'b01: mux_output = data_in[1];
+        2'b10: mux_output = data_in[2];
+        2'b11: mux_output = data_in[3];
+        default: mux_output = 1'b0; // Default: output 0
+      endcase
+    end
+  end
+
+endmodule
