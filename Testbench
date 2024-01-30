@@ -1,0 +1,34 @@
+module tb_four_to_one_mux_with_enable;
+
+  reg [3:0] data_in [0:3];
+  reg [1:0] select;
+  reg enable;
+  wire mux_output;
+
+  four_to_one_mux_with_enable uut (
+    .data_in(data_in),
+    .select(select),
+    .enable(enable),
+    .mux_output(mux_output)
+  );
+
+  initial begin
+    // Test 1: Enable input low, Select 2'b01
+    enable = 0;
+    select = 2'b01;
+    data_in[0] = 4'b1010;
+    data_in[1] = 4'b0101;
+    data_in[2] = 4'b1100;
+    data_in[3] = 4'b0011;
+    #10 $display("Time=%0t Select=%b Enable=%b MuxOutput=%b", $time, select, enable, mux_output);
+
+    // Test 2: Enable input high
+    enable = 1;
+    #10 $display("Time=%0t Select=%b Enable=%b MuxOutput=%b", $time, select, enable, mux_output);
+
+    // Add more test cases as needed
+
+    $finish;
+  end
+
+endmodule
